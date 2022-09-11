@@ -53,7 +53,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     return value;
   }
 
-//:cached Url Data
+  //:cached Url Data
   void cachedForUrl(String url) async {
     await DefaultCacheManager().getSingleFile(url).then((_) {
       // print('downloaded successfully done for $url');
@@ -68,6 +68,12 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    final Widget loading = Container(
+      width: 15,
+      height: 15,
+      margin: const EdgeInsets.all(10),
+      child: const CircularProgressIndicator(),
+    );
     return _controller != null && _controller!.value.isInitialized
         ? Stack(
             alignment: _controller!.value.isPlaying ? AlignmentDirectional.bottomStart : AlignmentDirectional.center,
@@ -93,6 +99,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
               ),
             ],
           )
-        : Container();
+        : Center(child: loading,);
   }
 }
