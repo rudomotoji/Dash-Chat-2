@@ -65,6 +65,7 @@ class _MessageListState extends State<MessageList> {
                   controller: scrollController,
                   reverse: true,
                   itemCount: widget.messages.length,
+                  cacheExtent: 1000,
                   itemBuilder: (BuildContext context, int i) {
                     final ChatMessage? previousMessage = i < widget.messages.length - 1 ? widget.messages[i + 1] : null;
                     final ChatMessage? nextMessage = i > 0 ? widget.messages[i - 1] : null;
@@ -75,7 +76,6 @@ class _MessageListState extends State<MessageList> {
                       isBeforeDateSeparator = _shouldShowDateSeparator(message, nextMessage, widget.messageListOptions);
                     }
                     return Column(
-                      key: widget.messages[i].id == null ? UniqueKey() : LabeledGlobalKey(widget.messages[i].id),
                       children: <Widget>[
                         if (isAfterDateSeparator)
                           widget.messageListOptions.dateSeparatorBuilder != null
